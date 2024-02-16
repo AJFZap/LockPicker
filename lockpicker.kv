@@ -1,0 +1,241 @@
+#: import menu menu
+#: import gameover gameover
+#: import guessesover guessesover
+#: import unlocked unlocked
+#: import tutorial tutorial
+
+LockPicker:
+
+<LockPicker>:
+
+    cipherOne: 0
+    cipherTwo: 0
+    cipherThree: 0
+
+    canvas:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source:  "Images/Lock-picker-final.png"
+
+    GridLayout:
+        size: root.width, root.height
+        rows: 3
+
+        BoxLayout:
+            size_hint: .25, .25
+
+            Label:
+                id: guesses
+                text: 'Guesses: ' + str(root.guesses)
+                color: 0,0,0,1
+                font_name: "Fonts/Sackers-Gothic-Std-Light.ttf"
+                font_size: self.size[0] * 0.1
+
+            Label:
+                id: clock
+                text: ""
+                color: 0,0,0,1
+                font_name: "Fonts/LCD Normal.ttf"
+                font_size: self.size[0] * 0.1
+
+        GridLayout:
+            cols: 3
+            spacing: -400
+            
+            BoxLayout:
+                GridLayout:
+                    cols: 1
+                    
+                    AnchorLayout:
+                        anchor_x: 'center'
+                        size_hint: .25, .25
+                        TriangleTopButton:
+                            id: moreOne
+                            text: ""
+                            width: root.width/8
+                            size_hint: None, None
+                            on_press: root.ArrowUp('moreOne')
+
+                    Label:
+                        id: firstCipher
+                        color: 0,0,0,1
+                        background_color: (1,1,1,1)
+                        canvas.before:
+                            Color:
+                                rgba: self.background_color
+                            RoundedRectangle:
+                                size: moreOne.size[0], self.size[1]/2
+                                pos: moreOne.pos[0] , self.pos[1] + self.size[1]/4
+                                radius: [(40, 40), (40, 40), (40, 40), (40, 40)]
+                        text: str(root.cipherOne)
+                        font_name: "Fonts/LCD-BOLD.TTF"
+                        font_size: self.size[0] * 0.1           
+
+                    AnchorLayout:
+                        anchor_x: 'center'
+                        size_hint: .25, .25
+                        TriangleBotButton:
+                            id: lessOne
+                            text: ""
+                            width: root.width/8
+                            size_hint: None, None
+                            on_press: root.ArrowDown('lessOne')
+        
+            BoxLayout:
+                GridLayout:
+                    cols: 1
+
+                    AnchorLayout:
+                        anchor_x: 'center'
+                        size_hint: .25, .25
+                        TriangleTopButton:
+                            id: moreTwo
+                            text: ""
+                            width: root.width/8
+                            size_hint: None, None
+                            on_press: root.ArrowUp('moreTwo')
+
+                    Label:
+                        id: secondCipher
+                        color: 0,0,0,1
+                        background_color: (1,1,1,1)
+                        canvas.before:
+                            Color:
+                                rgba: self.background_color
+                            RoundedRectangle:
+                                size: moreTwo.size[0], self.size[1]/2
+                                pos: moreTwo.pos[0] , self.pos[1] + self.size[1]/4
+                                radius: [(40, 40), (40, 40), (40, 40), (40, 40)]
+                        text: str(root.cipherTwo)
+                        font_name: "Fonts/LCD-BOLD.TTF"
+                        font_size: self.size[0] * 0.1           
+
+                    AnchorLayout:
+                        anchor_x: 'center'
+                        size_hint: .25, .25
+                        TriangleBotButton:
+                            id: lessTwo
+                            text: ""
+                            width: root.width/8
+                            size_hint: None, None
+                            on_press: root.ArrowDown('lessTwo')
+
+            BoxLayout:
+                GridLayout:
+                    cols: 1
+
+                    AnchorLayout:
+                        anchor_x: 'center'
+                        size_hint: .25, .25
+                        TriangleTopButton:
+                            id: moreThree
+                            text: ""
+                            width: root.width/8
+                            size_hint: None, None
+                            on_press: root.ArrowUp('moreThree')
+
+                    Label:
+                        id: thirdCipher
+                        color: 0,0,0,1
+                        background_color: (1,1,1,1)
+                        canvas.before:
+                            Color:
+                                rgba: self.background_color
+                            RoundedRectangle:
+                                size: moreThree.size[0], self.size[1]/2
+                                pos: moreThree.pos[0] , self.pos[1] + self.size[1]/4
+                                radius: [(40, 40), (40, 40), (40, 40), (40, 40)]
+                        text: str(root.cipherThree)
+                        font_name: "Fonts/LCD-BOLD.TTF"
+                        font_size: self.size[0] * 0.1           
+
+                    AnchorLayout:
+                        anchor_x: 'center'
+                        size_hint: .25, .25
+                        TriangleBotButton:
+                            id: lessThree
+                            text: ""
+                            width: root.width/8
+                            size_hint: None, None
+                            on_press: self.source = "Images/Golden-triangle-down-cropped.png"
+                            on_release: root.ArrowDown('lessThree')
+                        
+        AnchorLayout:
+            anchor_x: 'center'
+            size_hint: .25, .25
+
+            RoundedButton:
+                id: unlock_button
+                text: "Unlock"
+                font_name: "Fonts/Eurostile.ttf"
+                width: root.width/4
+                height: root.height/9
+                size_hint: None, None
+                font_size: self.size[0] * 0.25
+                on_press: root.Unlock()
+                disabled: True
+    
+    Unlocked:
+        id: cipher_unlocked
+
+    GuessesOver:
+        id: over_guesses
+
+    GameOver:
+        id: over_menu_lose
+    
+    Tutorial:
+        id: tutorial_menu
+
+    Menu:
+        id: menu_layout
+
+<RoundedButton@Button>
+    background_color: (0,0,0,0)
+    background_normal: ''
+    canvas.before:
+        Color:
+            rgba: (0,.5,1,1)
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            radius: [40]
+
+<TriangleTopButton@Button>
+    background_color: (0,0,0,0)
+    background_normal: ''
+    disabled: True
+    canvas.before:
+        Color:
+            rgba: (153/255, 142/255, 0/255, 1)
+        Rectangle:
+            pos: self.pos
+            size: self.size[0], self.size[1]
+            source: "Images/Golden-triangle-up-cropped.png"
+        Color: 
+            rgba: 0,0,0,1
+        Line:
+            points: [self.pos[0],self.pos[1],self.pos[0] + root.width/2, self.pos[1] + root.height,self.pos[0] + root.width,self.pos[1], self.pos[0],self.pos[1]]
+            width: 1.5
+            joint:'round'
+
+<TriangleBotButton@Button>
+    background_color: (0,0,0,0)
+    background_normal: ''
+    disabled: True
+    canvas.before:
+        Color:
+            rgba: (153/255, 142/255, 0/255, 1)
+        Rectangle:
+            id: triangle_down
+            pos: self.pos
+            size: self.size[0], self.size[1]
+            source: "Images/Golden-triangle-down-light.png"
+        Color: 
+            rgba: 0,0,0,1
+        Line:
+            points: [self.pos[0],self.pos[1] + root.height, self.pos[0] + root.width/2, self.pos[1], self.pos[0] + root.width, self.pos[1] + root.height]
+            width: 1.5
+            joint:'round'
+            close: True 

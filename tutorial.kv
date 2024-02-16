@@ -1,0 +1,94 @@
+
+<Tutorial>:
+    opacity: 0
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "Images/Alexandria-final.png"
+
+    BoxLayout:
+        
+        orientation:"vertical"
+        size:root.width, root.height
+        pos: root.pos
+        spacing: 10
+        padding: 10
+
+        Label:
+            font_name: "Fonts/Sackers-Gothic-Std-Light.ttf"
+            text: "Tutorial"
+            pos_hint: {"center_x": .5}
+            size_hint: 0.3, 0.1
+            font_size: self.size[1]/2
+            outline_width: 10
+            outline_colour: (0, 0, 0, 1)
+
+        BoxLayout:
+            orientation: "horizontal"
+            size: root.width, root.height/3
+            LeftArrow:
+                id: left_arrow
+                text: ""
+                size_hint: 0.15, 0.3
+                pos_hint: {"center_y": 0.5}
+                disabled: True
+                on_press: root.parent.PrevTutorial()
+
+            Label:
+                id: display
+                tutorialDisplayed: "Images/Tutorial images/Tutorial-image-1.png"
+                canvas.before:
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+                        source: self.tutorialDisplayed
+
+            RightArrow:
+                id: right_arrow
+                text: ""
+                size_hint: 0.15, 0.3
+                pos_hint: {"center_y": 0.5}
+                on_press: root.parent.NextTutorial()
+
+        BackMenuButton:
+            text: "Main Menu"
+            size_hint: 0.3, 0.15
+            font_size: self.height/2
+            pos_hint: {"center_x": 0.5}
+            on_press: root.parent.main_menu()
+
+<BackMenuButton@Button>
+    background_color: (0,0,0,0)
+    background_normal: ''
+    canvas.before:
+        Color:
+            rgba: (.3,.4,1,.85)
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            radius: [40]
+
+<LeftArrow@Button>
+    background_color: (0,0,0,0)
+    background_normal: ''
+    img: "Images/Tutorial images/Celtic-Arrow-left.png"
+    canvas.before:
+        Color:
+            rgba: (153/255, 142/255, 0/255, 1)
+        Rectangle:
+            pos: self.pos
+            size: self.size[0], self.size[1]
+            source: self.img
+
+<RightArrow@Button>
+    background_color: (0,0,0,0)
+    background_normal: ''
+    img: "Images/Tutorial images/Celtic-Arrow-right.png"
+    canvas.before:
+        Color:
+            rgba: (153/255, 142/255, 0/255, 1)
+        Rectangle:
+            pos: self.pos
+            size: self.size[0], self.size[1]
+            source: self.img
